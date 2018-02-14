@@ -1,0 +1,10 @@
+h1 {
+    text-align: center;
+}
+
+.selectedCar {
+    margin: 10px;
+    display: inline;
+    font-size: 32px;
+    text-align: center;
+}
