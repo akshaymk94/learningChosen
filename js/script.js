@@ -1,9 +1,11 @@
 $(document).ready(function() {
     
    var myCars=[]
+   var preselectedIds = []
    
    //retrieving data from JSON file and pushing it into myCars[]
    $.getJSON('json/cars.json', function(data) {
+       preselectedIds = data["preselectedId"];
        var listOfCars = data["myCars"];
        for(var index = 0; index < listOfCars.length; index++) {
            var obj = {}
@@ -12,6 +14,8 @@ $(document).ready(function() {
            myCars.push(obj);
        }
        carsDropDown(); //i had misplaced this function call. and thats what took time.
+       selectedCars();
+      
    });
     
     
@@ -21,10 +25,24 @@ $(document).ready(function() {
         $('#carsList').append(emptyOption);
         $.each(myCars, function(index, value) {
             var newOption = '<option id="'+value["id"]+'">'+value["name"]+'</option>';
+            
             $('#carsList').append(newOption);
         });
         $('#carsList').trigger("chosen:updated");
     }
+    
+    function selectedCars() {
+        $('#carsList option').each(function() {
+            for(var i = 0; i < preselectedIds.length; i ++) {
+                var individualId = $(this).attr('id');
+                if(individualId == preselectedIds[i]) {
+                    $(this).attr('selected', 'selected');
+                    $('#carsList').trigger("chosen:updated");
+                }
+            }
+        });
+    }
+     selectedCars();
     
     //converting a select element into chosen dropdownlist 
     $('#carsList').chosen({
