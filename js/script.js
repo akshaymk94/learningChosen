@@ -13,7 +13,7 @@ $(document).ready(function() {
            obj["name"] = listOfCars[index]["name"]
            myCars.push(obj);
        }
-       carsDropDown(); //i had misplaced this function call. and thats what took time.
+       carsDropDown();
        selectedCars();
       
    });
@@ -31,6 +31,7 @@ $(document).ready(function() {
         $('#carsList').trigger("chosen:updated");
     }
     
+    //preselecting options with ID that are present in preselectedIds[] 
     function selectedCars() {
         $('#carsList option').each(function() {
             for(var i = 0; i < preselectedIds.length; i ++) {
@@ -41,12 +42,32 @@ $(document).ready(function() {
                 }
             }
         });
+        showSelectedNamesIds();
     }
      selectedCars();
     
+    //on load of page, display the preselected options and their respective ID
+    function showSelectedNamesIds() {
+        $('#carsList option:selected').each(function(index, value) {
+            var selectedId = $(this).attr('id');
+            var selectedValue = $(this).val();
+            if($(this).length) {
+                var optionName = '<li class="optionName" elementId="'+ selectedId +'">'+ selectedValue +'</li>';
+                
+                $('.listOfSelectedOptions').append(optionName);
+                
+                var optionId = '<li class="optionId" id="'+ selectedId +'">'+ selectedId +'</li>';
+                
+                $('.listOfSelectedIds').append(optionId);
+            }
+            $('#carsList').trigger("chosen:updated");
+        });
+    }
+    
+    
     //converting a select element into chosen dropdownlist 
     $('#carsList').chosen({
-        width: "20%",
+        width: "80%",
         no_results_text: "oops! search failed!",
         /*max_selected_options: 2,*/
         allow_single_deselect: true
@@ -57,14 +78,22 @@ $(document).ready(function() {
         $('#carsList').notify("you've already selected maximum number of options!", {position: "bottom"});
     });
     
-    //click this button to display id and value of selected options
-    $('body').on('click','.btnSubmit', function() {
-        $('#carsList option:selected').each(function(index, value) {
+    
+    //on changes in the select element, display the preselected options and their respective ID 
+    $('body').on('change','#carsList', function() {
+        $('.listOfSelectedOptions').empty();
+        $('.listOfSelectedIds').empty();
+         $('#carsList option:selected').each(function(index, value) {
             var selectedId = $(this).attr('id');
             var selectedValue = $(this).val();
             if($(this).length) {
-                console.log("selected Id : " + selectedId);
-                console.log("selected option : " + selectedValue);
+                var optionName = '<li class="optionName" elementId="'+ selectedId +'">'+ selectedValue +'</li>';
+                
+                $('.listOfSelectedOptions').append(optionName);
+                
+                var optionId = '<li class="optionId" id="'+ selectedId +'">'+ selectedId +'</li>';
+                
+                $('.listOfSelectedIds').append(optionId);
             }
         });
     });

@@ -22,7 +22,8 @@
         <p class="lead">Changing a simple select into a stylish dropdown using chosen library</p>
         <h4>here is a list of cars. choose yours!</h4>
         
-        <select data-placeholder="Choose your car(s)..." multiple id="carsList">
+        <section id="dropdownSection">
+            <select data-placeholder="Choose your car(s)..." multiple id="carsList">
             <!--<option></option>
             <option>Abarth</option>
             <option>Acura</option>
@@ -48,9 +49,26 @@
             <option>Ford</option>
             <option>General Motors</option>-->
             
-        </select>
+            </select>
+
+            <!--<button type="button" class="btn btn-success btnSubmit">Submit</button>-->
         
-        <button type="button" class="btn btn-success btnSubmit">Submit</button>
+        </section>
+        
+        <section id="selectedOptionsSection">
+            <p class="lead">The value(s) of options selected in the dropdownlist will appear here.</p>
+            <ul class="listOfSelectedOptions">
+                
+            </ul>
+        </section>
+        
+        <section id="selectedIdSection">
+            <p class="lead">The ID(s) of options selected in the dropdownlist will appear here.</p>
+            <ul class="listOfSelectedIds">
+                
+            </ul>
+        
+        </section>
         
         <!--Load JQuery CDN first-->
         <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
